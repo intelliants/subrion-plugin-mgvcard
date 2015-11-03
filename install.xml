@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="mgvcard">
+	<title>mgVCard</title>
+	<summary>This plugin generates vCard profile for the listings.</summary>
+	<author>ModsGuru</author>
+	<contributor>ModsGuru</contributor>
+	<version>3.0.0</version>
+	<date>2013-04-15</date>
+	<compatibility>3.0</compatibility>
+  	<status>active</status>
+
+	<actions>
+		<action title="Generate vCard" url="mod/mgvcard/" order="4" show="view_listing"><![CDATA[ generate_vcard ]]></action>
+	</actions>
+
+	<hooks>
+		<hook name="beforeCloseTag" type="smarty">
+			<![CDATA[
+{ia_add_js}
+$(function()
+{
+	$('.js-generate_vcard').click(function()
+	{
+		var _this = $(this);
+		var href = _this.attr('href');
+		var listing_id = _this.data('id');
+		var link_url = intelli.config.esyn_url + href + 'index.html?listing=' + listing_id;
+
+		window.location = link_url;
+
+		return false;
+	});
+});
+{/ia_add_js}
+			]]>
+		</hook>
+	</hooks>
+
+	<pages>
+		<page name="mgvcard" title="vCard" uniqueurl="mod/mgvcard/" nonmodrewriteurl="controller.php?plugin=mgvcard" service="1"><![CDATA[ ]]></page>
+	</pages>
+</plugin>
